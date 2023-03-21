@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/require-default-props */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './styles.css';
@@ -7,10 +8,12 @@ import './styles.css';
 export default function PodcastDashboard({ podcasts }) {
   useEffect(() => {}, []);
 
+  /*  https://itunes.apple.com/lookup?id=934552872&media=podcast
+  &entity=podcastEpisode&limit=20 */
   return (
     <div className="Dashboard__grid">
       {podcasts.map((item) => (
-        <Link to={`podcast/${item?.id?.attributes['im:id']}`}>
+        <Link key={item.id} to={`podcast/${item?.id?.attributes['im:id']}`}>
           <div className="podcast__container">
             <img
               className="podcast__image"
@@ -23,11 +26,9 @@ export default function PodcastDashboard({ podcasts }) {
               </h1>
               <span className="author__span">
                 Author:
-                {' '}
                 {item['im:artist'].label}
               </span>
             </div>
-            {' '}
           </div>
         </Link>
       ))}
@@ -36,5 +37,5 @@ export default function PodcastDashboard({ podcasts }) {
 }
 
 PodcastDashboard.propTypes = {
-  podcasts: PropTypes.shape([]),
+  podcasts: PropTypes.shape({}),
 };
