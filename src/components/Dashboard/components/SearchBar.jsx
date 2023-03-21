@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import "../styles.css";
-export default function SearchBar({ podcasts }) {
+import React, { useEffect } from 'react';
+import '../styles.css';
+
+export default function SearchBar() {
   useEffect(() => {}, []);
-  console.log(podcasts);
 
   return (
     <div className="Search__bar">
