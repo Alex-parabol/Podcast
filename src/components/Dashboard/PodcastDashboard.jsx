@@ -8,12 +8,11 @@ import './styles.css';
 export default function PodcastDashboard({ podcasts }) {
   useEffect(() => {}, []);
 
-  /*  https://itunes.apple.com/lookup?id=934552872&media=podcast
-  &entity=podcastEpisode&limit=20 */
+  console.log(podcasts);
   return (
     <div className="Dashboard__grid">
       {podcasts.map((item) => (
-        <Link key={item.id} to={`podcast/${item?.id?.attributes['im:id']}`}>
+        <Link key={item?.link?.attributes?.href} to={`podcast/${item?.id?.attributes['im:id']}`}>
           <div className="podcast__container">
             <img
               className="podcast__image"

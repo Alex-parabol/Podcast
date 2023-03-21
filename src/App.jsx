@@ -26,14 +26,13 @@ export default function App() {
   }, []);
 
   return (
-    /* /podcast/{podcastId} */
+
     <div className="App">
       <Header isLoading={isLoading} />
       <Routes>
         <Route path="/" element={<PodcastDashboard podcasts={podcasts} />} />
-        <Route path="/podcast/{podcastId}" element={<PodcastDetail />} />
+        <Route path="/podcast/:podcastId" element={<PodcastDetail />} />
       </Routes>
-
     </div>
 
   );
