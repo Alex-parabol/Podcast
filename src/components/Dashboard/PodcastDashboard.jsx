@@ -6,13 +6,11 @@ import './styles.css';
 
 export default function PodcastDashboard({ podcasts }) {
   useEffect(() => {}, []);
-  console.log(podcasts);
 
   return (
     <div className="Dashboard__grid">
       {podcasts.map((item) => (
-        console.log(item)
-        <Link to='/'>
+        <Link to={`podcast/${item?.id?.attributes['im:id']}`}>
           <div className="podcast__container">
             <img
               className="podcast__image"
