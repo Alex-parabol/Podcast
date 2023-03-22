@@ -31,7 +31,7 @@ export default function App() {
       <Header isLoading={isLoading} />
       <Routes>
         <Route path="/" element={<PodcastDashboard podcasts={podcasts} />} />
-        <Route path="/podcast/:podcastId" element={<PodcastDetail />} />
+        <Route path="/podcast/:podcastId" element={<PodcastDetail podcasts={podcasts} />} />
       </Routes>
     </div>
 

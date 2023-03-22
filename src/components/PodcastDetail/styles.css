@@ -1,5 +1,38 @@
 .main__container {
     display:flex;
-    flex-direction: row;
+    flex-direction: colunn;
+    justify-content: center;
+    margin: auto;
     background-color: aqua;
+    gap: 10%;
+    width: 90%;
+    max-height: fit-content;
+}
+
+.left__container {
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    background-color: aquamarine;
+
+}
+
+.right__container {
+    flex:2
+}
+
+.table__component {
+    width: 90%
+}
+
+.table__header {
+    border-bottom: 1px solid grey;
+}
+
+.odd_row{
+    background-color: rgba(211, 211, 211, 0.26);
+}
+
+.even_row {
+    background-color: none;
 }

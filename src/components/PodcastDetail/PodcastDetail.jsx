@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import msToTime from '../utils/convertMiliseconsds';
 import './styles.css';
 
-export default function PodcastDetail() {
+export default function PodcastDetail({ podcasts }) {
   const { podcastId } = useParams();
   const [podcastsDetail, setPodcastsDetail] = useState();
 
@@ -25,7 +25,25 @@ export default function PodcastDetail() {
       .then((data) => {
         setPodcastsDetail(JSON.parse(data.contents));
       });
-  }, []); console.log('podcaastDetail data', podcastsDetail);
+  }, []);
+  console.log('podcaastDetail data', podcastsDetail);
+  console.log('podcasts data', podcasts);
+
+  /*  const getPodcastImage = (podcastArr) => {
+    podcasts.map((podcast) => (
+      const identification = podcast?.item?.id?.attributes['im:id']
+      let img;
+      if(identification === podcastId){
+        return img = podcast['im:image'][2]?.label
+      }
+
+    ));
+    return img;
+  }; */
+
+  /* useEffect(() => {
+    getPodcastImage(podcasts);
+  }, []); */
 
   return (
     <div className="main__container">
@@ -45,17 +63,17 @@ export default function PodcastDetail() {
           EPISODES:
           {podcastsDetail?.resultCount}
         </h1>
-        <table>
+        <table className="table__component">
           <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Duration</th>
+            <th className="table__header">Title</th>
+            <th className="table__header">Date</th>
+            <th className="table__header">Duration</th>
           </tr>
-          {podcastsDetail?.results.map((podcast) => (
+          {podcastsDetail?.results.map((podcast, index) => (
             <tr key={podcast.artistId}>
-              <td>{podcast?.artistName}</td>
-              <td>{podcast?.releaseDate}</td>
-              <td>{msToTime(podcast?.trackTimeMillis)}</td>
+              <td className={index % 2 === 0 ? 'odd_row' : 'even_row'}>{podcast?.trackName}</td>
+              <td className={index % 2 === 0 ? 'odd_row' : 'even_row'}>{podcast?.releaseDate}</td>
+              <td className={index % 2 === 0 ? 'odd_row' : 'even_row'}>{msToTime(podcast?.trackTimeMillis)}</td>
             </tr>
           ))}
 
@@ -68,4 +86,5 @@ export default function PodcastDetail() {
 
 PodcastDetail.propTypes = {
   item: PropTypes.any,
+  podcasts: PropTypes.array,
 };
