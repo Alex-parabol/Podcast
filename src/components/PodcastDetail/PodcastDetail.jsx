@@ -5,17 +5,34 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useAppContext } from '../../context/ContextProvider';
 import msToTime from '../utils/convertMiliseconsds';
 import './styles.css';
 
-export default function PodcastDetail({ podcasts }) {
+export default function PodcastDetail() {
+  const { contextState } = useAppContext();
+  const { podcasts } = contextState;
+
   const { podcastId } = useParams();
   const [podcastsDetail, setPodcastsDetail] = useState();
+  const [podcastPic, setPodcastPic] = useState({});
 
   const URL = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast
   &entity=podcastEpisode&limit=20`;
 
+  const getImg = () => {
+    let podcastImg;
+    podcasts?.map((podcast) => {
+      if (podcast?.id?.attributes['im:id'] === podcastId) {
+        podcastImg = podcast['im:image'];
+      }
+      return podcastImg;
+    });
+    return podcastImg;
+  };
+
   useEffect(() => {
+    setPodcastPic(getImg());
     fetch(
       `https://api.allorigins.win/get?url=${encodeURIComponent(
         URL,
@@ -26,8 +43,6 @@ export default function PodcastDetail({ podcasts }) {
         setPodcastsDetail(JSON.parse(data.contents));
       });
   }, []);
-  console.log('podcaastDetail data', podcastsDetail);
-  console.log('podcasts data', podcasts);
 
   /*  const getPodcastImage = (podcastArr) => {
     podcasts.map((podcast) => (
@@ -48,7 +63,11 @@ export default function PodcastDetail({ podcasts }) {
   return (
     <div className="main__container">
       <div className="left__container">
-        <div>Imágen podcast</div>
+        <img
+          className=""
+          alt="img"
+          src={podcastPic[2]?.label}
+        />
         <div>
           <h3>Título</h3>
           <span>Autor</span>

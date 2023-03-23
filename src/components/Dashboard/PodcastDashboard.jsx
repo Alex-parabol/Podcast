@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/require-default-props */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useAppContext } from '../../context/ContextProvider';
 import './styles.css';
 
-export default function PodcastDashboard({ podcasts }) {
-  useEffect(() => {}, []);
+export default function PodcastDashboard() {
+  const { contextState } = useAppContext();
+  const { podcasts } = contextState;
 
-  console.log(podcasts);
+  console.log(contextState);
   return (
     <div className="Dashboard__grid">
       {podcasts.map((item) => (
