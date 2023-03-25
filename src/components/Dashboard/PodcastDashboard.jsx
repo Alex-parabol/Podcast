@@ -10,12 +10,20 @@ import './styles.css';
 export default function PodcastDashboard() {
   const { contextState } = useAppContext();
   const { podcasts } = contextState;
+  const { query } = contextState;
+
+  const filteredData = podcasts?.filter((podcast) => {
+    if (query === '') {
+      return podcast;
+    } return podcast['im:artist']?.label.toLowerCase().includes(query) || podcast?.title?.label?.toLowerCase().includes(query);
+  });
+  console.log('podcasts dashboard', podcasts);
 
   return (
     <>
       <SearchBar />
       <div className="Dashboard__grid">
-        {podcasts.map((item) => (
+        {filteredData?.map((item) => (
           <Link key={item?.link?.attributes?.href} to={`podcast/${item?.id?.attributes['im:id']}`}>
             <div className="podcast__container">
               <img

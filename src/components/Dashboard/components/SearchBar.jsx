@@ -1,8 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAppContext } from '../../../context/ContextProvider';
 import '../styles.css';
 
 export default function SearchBar() {
-  useEffect(() => {}, []);
+  const { contextState, setContextState } = useAppContext();
+  const [input, setInput] = useState('');
+
+  useEffect(() => {
+    setContextState({ ...contextState, query: input });
+  }, [input]);
+  const inputHandler = (e) => {
+    // convert input text to lower case
+    const lowerCase = e.target.value.toLowerCase();
+    setInput(lowerCase);
+  };
 
   return (
     <div className="Search__bar">
@@ -11,7 +22,9 @@ export default function SearchBar() {
         className="Search__placeholder"
         type="search"
         placeholder="Filter podcast..."
-        name="q"
+        value={input}
+        onChange={inputHandler}
+
       />
     </div>
   );

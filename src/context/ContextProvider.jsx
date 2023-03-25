@@ -10,6 +10,7 @@ export function ContextProvider({ children }) {
   const [contextState, setContextState] = useState({
     podcasts: [],
     loading: true,
+    query: '',
   });
 
   useEffect(() => {
