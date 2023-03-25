@@ -15,24 +15,38 @@ export default function PodcastDetail() {
 
   const { podcastId } = useParams();
   const [podcastsDetail, setPodcastsDetail] = useState();
-  const [podcastPic, setPodcastPic] = useState({});
+  const [podcastInformation, setPodcastInformation] = useState({});
 
   const URL = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast
   &entity=podcastEpisode&limit=20`;
 
-  const getImg = () => {
-    let podcastImg;
+  console.log(podcastInformation);
+
+  const getPodcastInfo = () => {
+    let podcastInfo = {
+      img: [],
+      title: '',
+      author: '',
+      description: '',
+    };
+
     podcasts?.map((podcast) => {
       if (podcast?.id?.attributes['im:id'] === podcastId) {
-        podcastImg = podcast['im:image'];
+        podcastInfo = {
+          img: podcast['im:image'],
+          title: podcast?.title?.label,
+          author: podcast['im:artist']?.label,
+          description: podcast?.summary?.label,
+        };
+        return podcastInfo;
       }
-      return podcastImg;
+      return podcastInfo;
     });
-    return podcastImg;
+    return podcastInfo;
   };
 
   useEffect(() => {
-    setPodcastPic(getImg());
+    setPodcastInformation(getPodcastInfo());
     fetch(
       `https://api.allorigins.win/get?url=${encodeURIComponent(
         URL,
@@ -42,43 +56,33 @@ export default function PodcastDetail() {
       .then((data) => {
         setPodcastsDetail(JSON.parse(data.contents));
       });
-  }, []);
-
-  /*  const getPodcastImage = (podcastArr) => {
-    podcasts.map((podcast) => (
-      const identification = podcast?.item?.id?.attributes['im:id']
-      let img;
-      if(identification === podcastId){
-        return img = podcast['im:image'][2]?.label
-      }
-
-    ));
-    return img;
-  }; */
-
-  /* useEffect(() => {
-    getPodcastImage(podcasts);
-  }, []); */
+  }, [podcastsDetail]);
 
   return (
     <div className="main__container">
       <div className="left__container">
         <img
-          className=""
+          className="podcast__img"
           alt="img"
-          src={podcastPic[2]?.label}
+          /* src={podcastInformation?.img[2]?.label} */
         />
-        <div>
-          <h3>Título</h3>
-          <span>Autor</span>
+        <div className="divider"></div>
+        <div className="author__info">
+          <h3>{podcastInformation?.title}</h3>
+          <span>
+            By:
+            {' '}
+            {podcastInformation?.title}
+          </span>
         </div>
+        <div className="divider"></div>
         <div>
-          <h3>Descripción</h3>
-          <span>Texto descripción</span>
+          <h3>Description:</h3>
+          <span className="description__span">{podcastInformation?.description}</span>
         </div>
       </div>
       <div className="right__container">
-        <h1>
+        <h1 className="podcasts__header">
           EPISODES:
           {podcastsDetail?.resultCount}
         </h1>
@@ -91,8 +95,8 @@ export default function PodcastDetail() {
           {podcastsDetail?.results.map((podcast, index) => (
             <tr key={podcast.artistId}>
               <td className={index % 2 === 0 ? 'odd_row' : 'even_row'}>{podcast?.trackName}</td>
-              <td className={index % 2 === 0 ? 'odd_row' : 'even_row'}>{podcast?.releaseDate}</td>
-              <td className={index % 2 === 0 ? 'odd_row' : 'even_row'}>{msToTime(podcast?.trackTimeMillis)}</td>
+              <td className={index % 2 === 0 ? 'odd_row-black' : 'even_row-black'}>{podcast?.releaseDate}</td>
+              <td className={index % 2 === 0 ? 'odd_row-black' : 'even_row-black'}>{msToTime(podcast?.trackTimeMillis)}</td>
             </tr>
           ))}
 

@@ -1,38 +1,110 @@
 .main__container {
     display:flex;
+    width: 90%;
     flex-direction: colunn;
     justify-content: center;
+    padding-top: 20px;
     margin: auto;
-    background-color: aqua;
     gap: 10%;
-    width: 90%;
     max-height: fit-content;
+    
 }
+
 
 .left__container {
+    max-height: 700px;
     display: flex;
+    text-align: left;
     flex-direction: column;
     flex:1;
-    background-color: aquamarine;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: solid 1px #dcdcdc;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
 
 }
 
+.podcast__img{
+    align-self: center;
+    padding: 25px 0 25px 0;
+    width: 250px;
+    height: 250px;
+}
+
+.author__info{
+    padding: 10px 0;
+}
+
+.divider {
+    border: solid 1px #dcdcdc;
+    align-self: center;
+    
+    width: 90%
+}
+.description__span {
+    height: fit-content;
+}
 .right__container {
-    flex:2
+    flex:2;
+    
 }
+
+.podcasts__header{
+    width: 88%;
+    margin: auto;
+    border: solid 1px #dcdcdc;
+    text-align:left;
+    padding-left: 20px;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+
+
+/* table component */
+
 
 .table__component {
-    width: 90%
+    width: 90%;
+    margin: auto;
+    margin-top:6%;
+    text-align: left;
+   padding: 20px 20px 20px 20px;
+   border: solid 1px #dcdcdc;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
 }
 
 .table__header {
-    border-bottom: 1px solid grey;
+    border: solid 1px #dcdcdc;
+    padding: 15px 0;
+
+}
+
+.table__row {
+    padding-top: 5px 0;
+
 }
 
 .odd_row{
     background-color: rgba(211, 211, 211, 0.26);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.286);
+    color: rgba(7, 77, 135, 0.632);
+}
+.odd_row-black {
+    background-color: rgba(211, 211, 211, 0.26);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.286);
+    
 }
 
 .even_row {
     background-color: none;
+    padding: 5px 0;
+    color: rgba(7, 77, 135, 0.632);
+}
+.even_row-black {
+    background-color: none;
+    padding: 5px 0;
+ 
 }
