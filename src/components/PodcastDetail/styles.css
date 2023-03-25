@@ -12,7 +12,7 @@
 
 
 .left__container {
-    max-height: 700px;
+    height: fit-content;
     display: flex;
     text-align: left;
     flex-direction: column;
@@ -35,14 +35,22 @@
     padding: 10px 0;
 }
 
+.author__info > span {
+    font-style: italic;
+}
+
 .divider {
     border: solid 1px #dcdcdc;
     align-self: center;
-    
-    width: 90%
+    width: 100%
 }
-.description__span {
+.description__container{
     height: fit-content;
+    padding-bottom: 15px;
+}
+
+.description__container > span{
+    font-style: italic;
 }
 .right__container {
     flex:2;
@@ -54,7 +62,7 @@
     margin: auto;
     border: solid 1px #dcdcdc;
     text-align:left;
-    padding-left: 20px;
+    padding: 20px 0  20px 20px;
     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -75,7 +83,7 @@
 }
 
 .table__header {
-    border: solid 1px #dcdcdc;
+    
     padding: 15px 0;
 
 }
@@ -87,7 +95,7 @@
 
 .odd_row{
     background-color: rgba(211, 211, 211, 0.26);
-    padding: 5px 0;
+    padding: 5px 5px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.286);
     color: rgba(7, 77, 135, 0.632);
 }
@@ -100,7 +108,7 @@
 
 .even_row {
     background-color: none;
-    padding: 5px 0;
+    padding: 5px 5px;
     color: rgba(7, 77, 135, 0.632);
 }
 .even_row-black {

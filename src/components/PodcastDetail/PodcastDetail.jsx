@@ -20,8 +20,6 @@ export default function PodcastDetail() {
   const URL = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast
   &entity=podcastEpisode&limit=20`;
 
-  console.log(podcastInformation);
-
   const getPodcastInfo = () => {
     let podcastInfo = {
       img: [],
@@ -33,7 +31,7 @@ export default function PodcastDetail() {
     podcasts?.map((podcast) => {
       if (podcast?.id?.attributes['im:id'] === podcastId) {
         podcastInfo = {
-          img: podcast['im:image'],
+          img: podcast['im:image'][2].label,
           title: podcast?.title?.label,
           author: podcast['im:artist']?.label,
           description: podcast?.summary?.label,
@@ -61,11 +59,14 @@ export default function PodcastDetail() {
   return (
     <div className="main__container">
       <div className="left__container">
-        <img
-          className="podcast__img"
-          alt="img"
-          /* src={podcastInformation?.img[2]?.label} */
-        />
+        {podcastInformation?.img && (
+          <img
+            className="podcast__img"
+            alt="img"
+            src={podcastInformation?.img}
+          />
+        )}
+
         <div className="divider"></div>
         <div className="author__info">
           <h3>{podcastInformation?.title}</h3>
@@ -76,9 +77,9 @@ export default function PodcastDetail() {
           </span>
         </div>
         <div className="divider"></div>
-        <div>
+        <div className="description__container">
           <h3>Description:</h3>
-          <span className="description__span">{podcastInformation?.description}</span>
+          <span>{podcastInformation?.description}</span>
         </div>
       </div>
       <div className="right__container">
@@ -93,7 +94,7 @@ export default function PodcastDetail() {
             <th className="table__header">Duration</th>
           </tr>
           {podcastsDetail?.results.map((podcast, index) => (
-            <tr key={podcast.artistId}>
+            <tr key={podcast?.artistId}>
               <td className={index % 2 === 0 ? 'odd_row' : 'even_row'}>{podcast?.trackName}</td>
               <td className={index % 2 === 0 ? 'odd_row-black' : 'even_row-black'}>{podcast?.releaseDate}</td>
               <td className={index % 2 === 0 ? 'odd_row-black' : 'even_row-black'}>{msToTime(podcast?.trackTimeMillis)}</td>
