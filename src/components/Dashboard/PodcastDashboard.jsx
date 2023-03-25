@@ -17,14 +17,13 @@ export default function PodcastDashboard() {
       return podcast;
     } return podcast['im:artist']?.label.toLowerCase().includes(query) || podcast?.title?.label?.toLowerCase().includes(query);
   });
-  console.log('podcasts dashboard', podcasts);
 
   return (
     <>
       <SearchBar />
       <div className="Dashboard__grid">
         {filteredData?.map((item) => (
-          <Link key={item?.link?.attributes?.href} to={`podcast/${item?.id?.attributes['im:id']}`}>
+          <Link className="no_underline" key={item?.link?.attributes?.href} to={`podcast/${item?.id?.attributes['im:id']}`}>
             <div className="podcast__container">
               <img
                 className="podcast__image"
