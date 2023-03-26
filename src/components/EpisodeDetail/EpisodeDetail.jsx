@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
@@ -6,18 +7,23 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAppContext } from '../../context/ContextProvider';
-import Table from './components/Table';
-import './styles.css';
 
-export default function PodcastDetail() {
-  const { contextState, setContextState } = useAppContext();
-  const { podcasts } = contextState;
+import '../../styles.css';
+import PodcastAudio from './PodcastAudio';
 
-  const { podcastId } = useParams();
+export default function EpisodeDetail() {
+  const { episodeId } = useParams();
+  const [episodeDetail, setEpisodeDetail] = useState();
+
+  // podcast detail
+
+  const { contextState } = useAppContext();
+  const { podcasts, podcastId } = contextState;
+
   const [podcastsDetail, setPodcastsDetail] = useState();
   const [podcastInformation, setPodcastInformation] = useState({});
 
-  const URL = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast
+  const DETAILURL = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast
   &entity=podcastEpisode&limit=20`;
 
   const getPodcastInfo = () => {
@@ -47,15 +53,31 @@ export default function PodcastDetail() {
     setPodcastInformation(getPodcastInfo());
     fetch(
       `https://api.allorigins.win/get?url=${encodeURIComponent(
-        URL,
+        DETAILURL,
       )}`,
     )
       .then((response) => response.json())
       .then((data) => {
         setPodcastsDetail(JSON.parse(data.contents));
-        setContextState({ ...contextState, podcastId });
       });
   }, []);
+  // podcastInformation
+
+  const EPISODEURL = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast
+  &entity=${episodeId}&limit=20`;
+
+  useEffect(() => {
+    fetch(
+      `https://api.allorigins.win/get?url=${encodeURIComponent(
+        EPISODEURL,
+      )}`,
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setEpisodeDetail(JSON.parse(data));
+      });
+  }, []);
+  console.log('episodeDetail', episodeDetail);
 
   return (
     <div className="main__container">
@@ -84,16 +106,14 @@ export default function PodcastDetail() {
         </div>
       </div>
       <div className="right__container">
-
-        <Table podcastsDetail={podcastsDetail} />
-
+        <PodcastAudio />
       </div>
 
     </div>
   );
 }
 
-PodcastDetail.propTypes = {
+EpisodeDetail.propTypes = {
   item: PropTypes.any,
   podcasts: PropTypes.array,
 };

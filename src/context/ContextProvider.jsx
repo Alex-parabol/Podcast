@@ -13,6 +13,8 @@ export function ContextProvider({ children }) {
     podcasts: [],
     loading: true,
     query: '',
+    podcastId: '',
+    showEpisode: false,
   });
 
   useEffect(() => {
@@ -28,9 +30,10 @@ export function ContextProvider({ children }) {
       .then((response) => response.json())
       .then((data) => {
         const parsedData = parsePodcasts(data);
-        setContextState({ ...contextState, podcasts: parsedData, loading: false });
+
         localStorage.setItem('podcasts', JSON.stringify(parsedData));
         localStorage.setItem('lastUpdated', new Date().getTime().toString());
+        setContextState({ ...contextState, podcasts: parsedData, loading: false });
       });
   }, []);
 
