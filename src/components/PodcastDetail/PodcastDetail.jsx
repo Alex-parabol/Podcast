@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAppContext } from '../../context/ContextProvider';
 import msToTime from '../utils/convertMiliseconsds';
+import { getPodcastsDetailFromLocalStorage, parsePodcastsDetail } from '../../context/utils/podcastFunctions';
 import './styles.css';
 
 export default function PodcastDetail() {
@@ -43,6 +44,24 @@ export default function PodcastDetail() {
     return podcastInfo;
   };
 
+  /* useEffect(() => {
+    const storedPodcasts = getPodcastsFromLocalStorage();
+    if (storedPodcasts) {
+      setContextState({ ...contextState, podcasts: storedPodcasts, loading: false });
+    }
+    fetch(
+      `https://api.allorigins.win/get?url=${encodeURIComponent(
+        'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json',
+      )}`,
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const parsedData = parsePodcasts(data);
+        setContextState({ ...contextState, podcasts: parsedData, loading: false });
+        localStorage.setItem('podcasts', JSON.stringify(parsedData));
+        localStorage.setItem('lastUpdated', new Date().getTime().toString());
+      });
+  }, []); */
   useEffect(() => {
     setPodcastInformation(getPodcastInfo());
     fetch(

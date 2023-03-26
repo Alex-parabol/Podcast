@@ -4,28 +4,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { AppContext } from './AppContext';
+import { getPodcastsFromLocalStorage, parsePodcasts } from './utils/podcastFunctions';
 
 export const useAppContext = () => useContext(AppContext);
-
-function parsePodcasts(responseData) {
-  const resultData = responseData.contents;
-  const result = JSON.parse(resultData);
-  return result.feed.entry;
-}
-
-function getPodcastsFromLocalStorage() {
-  const podcasts = localStorage.getItem('podcasts');
-  const lastUpdated = localStorage.getItem('lastUpdated');
-  if (!podcasts || !lastUpdated) return null;
-  const now = new Date().getTime();
-  const timeDiff = now - parseInt(lastUpdated);
-  if (timeDiff > 24 * 60 * 60 * 1000) {
-    localStorage.removeItem('podcasts');
-    localStorage.removeItem('lastUpdated');
-    return null;
-  }
-  return JSON.parse(podcasts);
-}
 
 export function ContextProvider({ children }) {
   const [contextState, setContextState] = useState({
